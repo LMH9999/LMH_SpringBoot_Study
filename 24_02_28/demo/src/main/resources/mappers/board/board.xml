@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+    <select id="list" resultType="com.example.demo.vo.QnaVO">
+        SELECT
+            `qna_board`.`id`,
+            `qna_board`.`title`,
+            `qna_board`.`user_id`
+        FROM `board`.`qna_board`
+    </select>
+    <insert id="write" parameterType="com.example.demo.vo.QnaVO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `board`.`qna_board`
+            (`title`,
+            `user_id`)
+        VALUES
+            (#{title},
+            #{userId})
+    </insert>
+    <select id="findById" resultType="com.example.demo.vo.QnaVO">
+        SELECT `qna_board`.`user_id`
+        FROM `board`.`qna_board`
+        WHERE id = #{id}
+    </select>
+    <update id="update" parameterType="com.example.demo.vo.QnaVO">
+        UPDATE
+            `board`.`qna_board`
+        SET
+            `title` = #{title},
+            `user_id` = #{userId}
+        WHERE `id` = #{id}
+    </update>
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM `board`.`qna_board`
+        WHERE id = #{id}
+    </delete>
+</mapper>
